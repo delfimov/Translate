@@ -13,20 +13,12 @@
 
 	<!-- Le styles -->
 	<link href="css/bootstrap.min.css" rel="stylesheet">
-	<link href="css/check_browser.css" rel="stylesheet">
-	<style type="text/css">
-		body {
-			padding-top: 0px;
-		}
-		#warning_desc {
-			text-align:center;
-			color:#666;
-			background:#ffc;
-			padding:15px 0;
-			border-bottom:3px solid #ccc;
-		}
-	</style>
-
+    <style type="text/css">
+      body {
+        padding-top: 60px;
+        padding-bottom: 40px;
+      }
+    </style>
 </head>
 
 <body>
@@ -39,23 +31,22 @@ $t->fallback = 'ru';
 
 ?>
 
+
     <div class="container">
 
       <div class="hero-unit">
         <h1>Translate</h1>
         <p><?=$t->t('PHP library for loading translation files and generating translated strings.')?></p>
-        <p><a href="https://github.com/Groozly/Translate" class="btn primary large"><?=$t->t('Translate on GitHub &raquo;')?></a></p>
+        <p><a href="https://github.com/Groozly/Translate" class="btn btn-primary btn-large"><?=$t->t('Translate on GitHub &raquo;')?></a></p>
       </div>
 
       <div class="row">
         <div class="span6">
-          <h2>Пример использования</h2>
-          <p><? $l = rand(0,100); echo $t->choice('%d литр %s|%d литра %s|%d литров %s', $l, array($l, 'second'), 'ru');?></p>
-		  <br />
-		  <p><? $l = rand(0,100); echo $t->choice('%d liter|%d liters', $l);?></p>
+          <h2><?=$t->t('Class synopsis')?></h2>
+		  <p><?=$t->t('Documentation')?></p>
         </div>
-        <div class="span10">
-          <h2>Пример использования</h2>
+        <div class="span6">
+          <h2><?=$t->t('Usage example')?></h2>
 			<pre class="prettyprint">
 <?php
 $s = '
@@ -82,6 +73,8 @@ echo str_replace(
         </div>
       </div>
 
+	  <hr>
+	  
       <footer>
         <p>&copy; <a href="mailto:dmitry@elfimov.ru">Dmitry Elfimov</a> 2011&mdash;<?=date('Y')?></p>
       </footer>
