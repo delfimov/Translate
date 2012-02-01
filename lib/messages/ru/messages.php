@@ -1,0 +1,1 @@
+<?phpreturn array(    'Translate on GitHub &raquo;' => 'Translate на GitHub &raquo;',    'PHP library for loading translation files and generating translated strings.' => 'PHP библиотека для загрузки языковых файлов и перевода строк.',);

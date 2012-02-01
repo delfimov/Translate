@@ -1,0 +1,1 @@
+<?phpreturn array(    'test' => 'test string',    'some' => 'something other',);
