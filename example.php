@@ -36,24 +36,28 @@ $t->fallback = 'ru';
 
       <div class="hero-unit">
         <h1>Translate</h1>
-        <p><?=$t->t('PHP library for loading translation files and generating translated strings.')?></p>
-        <p><a href="https://github.com/Groozly/Translate" class="btn btn-primary btn-large"><?=$t->t('Translate on GitHub &raquo;')?></a></p>
+        <p><?=$t('PHP library for loading translation files and generating translated strings.')?></p>
+        <p><a href="https://github.com/Groozly/Translate" class="btn btn-primary btn-large"><?=$t('Translate on GitHub &raquo;')?></a></p>
       </div>
 
       <div class="row">
         <div class="span6">
-          <h2><?=$t->t('Class synopsis')?></h2>
-		  <p><?=$t->t('Documentation')?></p>
+          <h2><?php echo $t('Class synopsis'); // php >= 5.3 required ?></h2>
+		  <p><?php echo $t->t('Documentation'); // php < 5.3 compatible ?></p>
         </div>
         <div class="span6">
-          <h2><?=$t->t('Usage example')?></h2>
+          <h2><?=$t('Usage examples')?></h2>
 			<pre class="prettyprint">
 <?php
 $s = '
 include("lib/translate.php");
 
 $t = new translate();
-echo $t->t("some string");
+
+// php >= 5.3 required
+echo $t("some string");
+
+// php < 5.3 compatible
 echo $t->t("%s is %d", "key", 3);
 
 
