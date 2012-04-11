@@ -1,1 +1,1 @@
-<?phpreturn array(	'Class synopsis'	=>	'Описание класса',	'Usage examples'	=>	'Примеры использования',	'Translate on GitHub &raquo;'	=>	'Translate на GitHub &raquo;',	'PHP library for loading translation files and generating translated strings.'	=>	'PHP библиотека для загрузки файлов перевода и перевода строк.');
+<?phpreturn array();
