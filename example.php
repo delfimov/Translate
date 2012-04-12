@@ -24,11 +24,9 @@
 <body>
 
 <?php
-include('lib/translate.php');
+include('lib/Translate.php');
 
-$t = new translate();
-$t->fallback = 'ru';
-
+$t = new Translate(null, null, 'en', array('ru', 'en'));
 ?>
 
 
@@ -50,9 +48,9 @@ $t->fallback = 'ru';
 			<pre class="prettyprint">
 <?php
 $s = '
-include("lib/translate.php");
+include("lib/Translate.php");
 
-$t = new translate();
+$t = new Translate(null, null, "en", array("ru", "en"));
 
 // php >= 5.3 required
 echo $t("some string");
@@ -60,11 +58,10 @@ echo $t("some string");
 // php < 5.3 compatible
 echo $t->t("%s is %d", "key", 3);
 
+$t->setLanguage("ru")
 
-$t = new translate("translate", "ru", "en", array("ru", "en"));
-$l = rand(0, 100);
-$t->choice("%d liter|%d liters", $l);
-$t->choice("%s1", $l, null, "ru");
+echo $t->choice("%d liter|%d liters", rand(0, 100));
+echo $t->choice("%s1", rand(0, 100));
 ';
 
 echo str_replace(
