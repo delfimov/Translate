@@ -24,7 +24,7 @@
 <body>
 
 <?php
-include('lib/Translate.php');
+include 'lib/Translate.php';
 
 $t = new Translate(null, null, 'en', array('ru', 'en'));
 ?>
@@ -48,7 +48,7 @@ $t = new Translate(null, null, 'en', array('ru', 'en'));
 			<pre class="prettyprint">
 <?php
 $s = '
-include("lib/Translate.php");
+include "lib/Translate.php";
 
 $t = new Translate(null, null, "en", array("ru", "en"));
 
