@@ -1,6 +1,6 @@
 <?php
 /**
- * Translate is part of Nanobanano framework
+ * Translate is a part of Nanobanano framework
  *
  * PHP version 5
  *
@@ -8,6 +8,14 @@
  * @license   http://www.elfimov.ru/nanobanano/license.txt MIT License
  * @link      http://elfimov.ru/nanobanano
  * 
+ * Usage example:
+ * $t = new t('/home/www/site', null, 'en', array('ru', 'en', 'de'), array('help.php', 'info.php'));
+ * $message = $t('The %s contains a monkey', $location);
+ *
+ * $t = new t(null, null, 'en', array('ru', 'en', 'de'));
+ * $message = $t->t('The %s contains a monkey', $location, $num);
+ * $message = $t->choice('The %s contains %d monkey|The %s contains %d monkeys', $num, $location, $num);
+ *
  */
  
 /*
@@ -208,6 +216,10 @@ class Translate
      */
     public function __invoke($string, $args=null)
     {
+        if (!is_array($args)) {
+            $args = func_get_args();
+            array_shift($args);
+        }
         return $this->t($string, $args);
     }
     
