@@ -1,0 +1,37 @@
+{
+    "name": "delfimov/translate",
+    "license": "MIT",
+    "type": "library",
+    "description": "Easy to use translate library for multi-language websites",
+    "keywords": ["translate", "language", "plural", "multi-language"],
+
+    "homepage": "https://github.com/delfimov/Translate/",
+
+    "authors": [
+        {
+            "name": "Dmitry Elfimov",
+            "email": "elfimov@gmail.com"
+        }
+    ],
+
+    "autoload": {
+        "psr-4": {
+            "delfimov\\": "./src"
+        }
+    },
+
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/delfimov/Translate.git"
+    },
+
+    "prefer-stable" : true,
+
+    "require": {
+        "php": ">=5.4.0"
+    },
+
+    "require-dev" : {
+    }
+
+}

@@ -1,8 +1,0 @@
-Translate
-=========
-PHP library for loading translation files and generating translated strings.
-
-TODO
-----
-* Simplify object initialization.
-* Better examples and documentation.
