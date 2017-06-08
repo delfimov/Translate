@@ -26,10 +26,13 @@ If you don't speak git or just want a tarball, click the 'zip' button at the top
 
 ## A Simple Example
 
-`example.php`
+See [`example`](example) directory for sources.
+
+`example\example.php`
 ```php
-<?php
-require "src/Translate.php"; // better use Composer, see README.md
+<pre><?php
+
+require "../src/Translate.php"; // better use Composer, see README.md
 $t = new delfimov\Translate(
     [
         "default" => "en",
@@ -41,28 +44,32 @@ $t = new delfimov\Translate(
 
 $num = rand(0, 100);
 
-echo $t->t('some string'); // or $t('some string');
-echo $t->plural('%d liters', $num);
-echo $t->plural("The %s contains %d monkeys", $num, ['tree', $num]);
+$t->setLanguage("en"); // this is not required, language will be auto detected with Accept-Language HTTP header
+echo $t->t('some string') . "\n\n"; // or $t('some string');
+echo $t->plural('%d liters', $num) . "\n\n";
+echo $t->plural("The %s contains %d monkeys", $num, ['tree', $num]) . "\n\n";
+
+$num = rand(0, 100);
 
 $t->setLanguage("ru");
+echo $t->t('some string')."\n\n"; // or $t('some string');
+echo $t->plural('%d liters', $num) . "\n\n";
+echo $t->plural("The %s contains %d monkeys", $num, ['tree', $num]) . "\n\n";
 
-echo $t->t('some string'); // or $t('some string');
-echo $t->plural('%d liters', $num);
-echo $t->plural("The %s contains %d monkeys", $num, ['tree', $num]);
+?></pre>
 ```
 
-`messages\en\messages.php`
+`example\messages\en\messages.php`
 ```php
 <?php
 return [
     'some string' => 'Some string',
     '%d liters' => '%d liter|%d liters',
     'The %s contains %d monkeys' => 'The %s contains %d monkey|The %s contains %d monkeys',
-]
+];
 ```
 
-`messages\ru\messages.php`
+`example\messages\ru\messages.php`
 ```php
 <?php
 return [
@@ -70,7 +77,7 @@ return [
     '%d liters' => '%d литр|%d литра|%d литров',
     'The %s contains %d monkeys' => 'На %s сидит %d обезьяна|На %s сидят %d обезьяны|На %s сидят %d обезьян',
     'tree' => 'дереве'
-]
+];
 ```
 
 ## TODO
