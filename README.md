@@ -76,7 +76,6 @@ return [
 ## TODO
 
  * Unit tests
- * php-cs
  * `Translate->getMessages()` and `Translate->getMessage()`. Must use a message loader to be able to load translation messages from any source, not just php files.
- * `Translate->getLanguage()`. Rewrite, simplify and add 3 letters language codes support.  
+ * `Translate->detectLanguage()`. Rewrite, simplify and add 3 letters language codes support.  
  

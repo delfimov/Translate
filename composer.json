@@ -31,7 +31,17 @@
         "php": ">=5.4.0"
     },
 
-    "require-dev" : {
+    "require-dev": {
+        "squizlabs/php_codesniffer": "3.*",
+        "phpunit/phpunit": "^6.1"
+    },
+
+    "scripts" : {
+        "phpcs": "php ./vendor/squizlabs/php_codesniffer/bin/phpcs ./src/Translate.php",
+        "test": [
+            "php ./vendor/phpunit/phpunit/phpunit --bootstrap src/Translate.php tests/TranslateTest"
+        ]
     }
+
 
 }
