@@ -23,7 +23,10 @@ header('Content-Type: text/html; charset=utf-8');
 
     <div class="starter-template">
         <h1>Translate</h1>
-        <p class="lead">Easy to use translate library for multi-language websites.</p>
+        <p class="lead">
+            Easy to use i18n translation PHP class for multi-language websites
+            with language auto detection and plurals.
+        </p>
     </div>
 
     <hr>

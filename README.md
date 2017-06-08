@@ -1,6 +1,7 @@
 # Translate
 
-Easy to use PHP class for multi-language websites with language auto detection and plurals.
+Easy to use i18n translation PHP class for multi-language websites 
+with language auto detection and plurals.
 
 ## Requirements
 

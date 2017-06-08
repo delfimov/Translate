@@ -2,8 +2,8 @@
     "name": "delfimov/translate",
     "license": "MIT",
     "type": "library",
-    "description": "Easy to use translate library for multi-language websites",
-    "keywords": ["translate", "language", "plural", "multi-language"],
+    "description": "Easy to use i18n translation PHP class for multi-language websites",
+    "keywords": ["translate", "language", "plural", "multi-language", "i18n"],
 
     "homepage": "https://github.com/delfimov/Translate/",
 
