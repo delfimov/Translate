@@ -34,13 +34,16 @@ header('Content-Type: text/html; charset=utf-8');
     <h4>Example output</h4>
 <pre><?php
 
-require "../src/Translate.php"; // better use Composer, see README.md
-$t = new delfimov\Translate(
+// use Composer, see README.md
+require "../src/Translate.php";
+require "../src/Loader/LoaderInterface.php";
+require "../src/Loader/PhpFilesLoader.php";
+$t = new DElfimov\Translate\Translate(
     [
         "default" => "en",
         "available" => ["en", "ru"],
-        "path" => __DIR__ . "/messages"
-    ]
+    ],
+    new DElfimov\Translate\Loader\PhpFilesLoader(__DIR__ . "/messages")
 );
 
 

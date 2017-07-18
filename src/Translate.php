@@ -11,7 +11,7 @@
  * @link     https://github.com/delfimov/Translate/
  */
 
-namespace delfimov;
+namespace DElfimov\Translate;
 
 /**
  * Class Translate
@@ -37,12 +37,9 @@ class Translate
      *
      * @var array
      */
-    protected $messages = array();
+    protected $messages = [];
 
     /**
-     * 'path'      Path to language files.
-     *             By default is "messages" subdirectory
-     *             in the library class directory.
      *
      * 'language'  User's language.
      *             If omitted then the best matching value
@@ -56,7 +53,6 @@ class Translate
      * 'synonyms'  Synonyms for language codes
      */
     protected $options = [
-        'path' => null,
         'language' => null,
         'default' => null,
         'available' => null,
@@ -73,16 +69,23 @@ class Translate
         // then 'en' will be used instead.
     ];
 
+    /**
+     * @var Loader\PhpFilesLoader
+     */
+    protected $loader;
+
 
     /**
      * Translate constructor.
      *
      * @param array $options same as self::options
+     * @param Loader\PhpFilesLoader $loader messages loader
      *
      * @return Translate
      */
-    public function __construct(Array $options = [])
+    public function __construct(Array $options = [], $loader)
     {
+        $this->loader = $loader;
         $this->setOptions($options);
     }
 
@@ -137,6 +140,18 @@ class Translate
         return isset($this->messages[$language]);
     }
 
+    /**
+     * Are messages for specified language available
+     *
+     * @param string $language language code
+     *
+     * @return bool
+     */
+    public function hasMessages($language)
+    {
+        return $this->loader->has($language);
+    }
+
 
     /**
      * Set messages for language
@@ -161,17 +176,7 @@ class Translate
     protected function getMessages($language)
     {
         if (!isset($this->messages[$language])) {
-            $messages = [];
-            if (!empty($language)) {
-                $path = $this->getPath();
-                if (file_exists($path . '/' . $language)) {
-                    $messagesFile = $path . '/' . $language . '/messages.php';
-                    if (file_exists($messagesFile)) {
-                        $messages = include $messagesFile;
-                    }
-                }
-            }
-            $this->messages[$language] = $messages;
+            $this->messages[$language] = $this->loader->get($language);
         }
         return $this->messages[$language];
     }
@@ -195,19 +200,6 @@ class Translate
         return $string;
     }
 
-    /**
-     * Get filesystem path where messages are stored
-     *
-     * @return mixed
-     */
-    protected function getPath()
-    {
-        if (!isset($this->options['path'])) {
-            $this->options['path'] = realpath(__DIR__ . '/..');
-        }
-        return $this->options['path'];
-    }
-    
     /**
      * Gets user's accept-laguage and check if it is in available languages list.
      *

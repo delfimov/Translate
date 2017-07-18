@@ -33,15 +33,13 @@ See [`example`](example) directory for sources.
 ```php
 <pre><?php
 
-require "../src/Translate.php"; // better use Composer, see README.md
-$t = new delfimov\Translate(
+$t = new DElfimov\Translate\Translate(
     [
         "default" => "en",
         "available" => ["en", "ru"],
-        "path" => __DIR__ . "/messages"
-    ]
+    ],
+    new DElfimov\Translate\Loader\PhpFilesLoader(__DIR__ . "/messages")
 );
-
 
 $num = rand(0, 100);
 
