@@ -22,8 +22,10 @@ composer require delfimov/translate
 ```
 
 Alternatively, copy the contents of the Translate folder into one of 
-your project's directories and require '/path/to/Translate/Translate.php';
-If you don't speak git or just want a tarball, click the 'zip' button at the top of the page in GitHub.
+your project's directories and `require 'src/Translate.php';`, 
+`require 'src/Loader/LoaderInterface.php';`, `require 'src/Loader/PhpFilesLoader.php';`
+If you don't speak git or just want a tarball, click the 'zip' button 
+at the top of the page in GitHub.
 
 ## A Simple Example
 
@@ -82,6 +84,5 @@ return [
 ## TODO
 
  * Unit tests
- * `Translate->getMessages()` and `Translate->getMessage()`. Must use a message loader to be able to load translation messages from any source, not just php files.
- * `Translate->detectLanguage()`. Rewrite, simplify and add 3 letters language codes support.  
+ * `Translate->detectLanguage()`. Rewrite, simplify, and add 3 letters language codes support.  
  

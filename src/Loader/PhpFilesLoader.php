@@ -23,7 +23,7 @@ class PhpFilesLoader implements LoaderInterface
 
     /**
      * PhpFilesLoader constructor.
-     * @param $path Path to language files.
+     * @param string $path Path to language files.
      */
     public function __construct($path)
     {
