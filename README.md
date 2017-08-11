@@ -1,3 +1,5 @@
+[![License](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/delfimov/GDImage/blob/master/LICENSE)
+
 # Translate
 
 Easy to use i18n translation PHP class for multi-language websites 
@@ -35,12 +37,15 @@ See [`example`](example) directory for sources.
 ```php
 <pre><?php
 
-$t = new DElfimov\Translate\Translate(
+use DElfimov\Translate\Translate;
+use DElfimov\Translate\Loader\PhpFilesLoader;
+
+$t = new Translate(
+    new PhpFilesLoader(__DIR__ . "/messages"),
     [
         "default" => "en",
         "available" => ["en", "ru"],
-    ],
-    new DElfimov\Translate\Loader\PhpFilesLoader(__DIR__ . "/messages")
+    ]
 );
 
 $num = rand(0, 100);
@@ -83,6 +88,6 @@ return [
 
 ## TODO
 
- * Unit tests
+ * Better code coverage
  * `Translate->detectLanguage()`. Rewrite, simplify, and add 3 letters language codes support.  
  

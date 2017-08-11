@@ -60,8 +60,4 @@ class PhpFilesLoader implements LoaderInterface
             && file_exists($this->path . '/' . $language . '/messages.php')
         );
     }
-
-
-
-
 }

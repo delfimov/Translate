@@ -20,11 +20,6 @@
         }
     },
 
-    "repository": {
-        "type": "git",
-        "url": "https://github.com/delfimov/Translate.git"
-    },
-
     "prefer-stable" : true,
 
     "require": {
@@ -33,15 +28,13 @@
 
     "require-dev": {
         "squizlabs/php_codesniffer": "3.*",
-        "phpunit/phpunit": "^6.1"
+        "phpunit/phpunit": "^6"
     },
 
     "scripts" : {
-        "phpcs": "php ./vendor/squizlabs/php_codesniffer/bin/phpcs ./src/Translate.php",
+        "phpcs": "php ./vendor/bin/phpcs",
         "test": [
-            "php ./vendor/phpunit/phpunit/phpunit --bootstrap src/Translate.php tests/TranslateTest"
+            "php ./vendor/bin/phpunit"
         ]
     }
-
-
 }

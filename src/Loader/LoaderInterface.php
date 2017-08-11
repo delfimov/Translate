@@ -2,10 +2,8 @@
 
 namespace DElfimov\Translate\Loader;
 
-
 interface LoaderInterface
 {
-
     /**
      * Fetches messages.
      *
@@ -25,5 +23,4 @@ interface LoaderInterface
      *
      */
     public function has($language);
-
 }

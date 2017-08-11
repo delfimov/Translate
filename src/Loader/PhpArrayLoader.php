@@ -55,8 +55,4 @@ class PhpArrayLoader implements LoaderInterface
     {
         return isset($this->messages[$language]);
     }
-
-
-
-
 }

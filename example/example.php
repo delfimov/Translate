@@ -39,11 +39,11 @@ require "../src/Translate.php";
 require "../src/Loader/LoaderInterface.php";
 require "../src/Loader/PhpFilesLoader.php";
 $t = new DElfimov\Translate\Translate(
+    new DElfimov\Translate\Loader\PhpFilesLoader(__DIR__ . "/messages"),
     [
         "default" => "en",
         "available" => ["en", "ru"],
-    ],
-    new DElfimov\Translate\Loader\PhpFilesLoader(__DIR__ . "/messages")
+    ]
 );
 
 
