@@ -1,5 +1,6 @@
 [![Build Status](https://travis-ci.org/delfimov/Translate.svg?branch=master)](https://travis-ci.org/delfimov/Translate)
 [![StyleCI](https://styleci.io/repos/3325239/shield?branch=master)](https://styleci.io/repos/3325239)
+[![SensioLabsInsight](https://insight.sensiolabs.com/projects/26b7cfce-3636-4385-be29-54f51b6dfe42/mini.png)](https://insight.sensiolabs.com/projects/26b7cfce-3636-4385-be29-54f51b6dfe42)
 [![License](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/delfimov/GDImage/blob/master/LICENSE)
 
 
