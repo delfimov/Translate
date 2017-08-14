@@ -108,7 +108,7 @@ class Translate
         foreach ($options as $key => $value) {
             $this->options[$key] = $value;
         }
-        $this->setLanguage($this->getLanguage());
+        $this->setLanguage($this->getLanguage(true));
         $this->setMessages($this->language, $this->getMessages($this->language));
     }
 
@@ -200,11 +200,13 @@ class Translate
     /**
      * Get current language
      *
+     * @param bool $force force get language
+     *
      * @return string $language language code
      */
-    public function getLanguage()
+    public function getLanguage($force = false)
     {
-        if (empty($this->language)) {
+        if (empty($this->language) || $force) {
             if (!empty($this->options['language'])) {
                 $acceptLanguage = $this->options['language'];
             } elseif (!empty($this->options['accept-language'])) {

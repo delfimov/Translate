@@ -16,6 +16,35 @@ class TranslateTest extends TestCase
         $this->assertEquals(true, $translate->getLanguage() == 'en');
     }
 
+    /**
+     * @dataProvider headersProvider
+     */
+    public function testAcceptLanguage($language, $header)
+    {
+        $translate = $this->getTranslate();
+        $translate->setOptions(
+            [
+                'accept-language' => $header,
+                'available' => ['en', 'ru', 'de', 'zh', 'ja'],
+            ]
+        );
+        $this->assertEquals(true, $translate->getLanguage() == $language);
+    }
+
+    public function headersProvider()
+    {
+        return [
+            ['zh', 'en-Kata;q=0.1,en_PCN;djfiasjdflsakdjflksajflas,zh_HKG;q=2000,tlh-Latn-US'],
+            ['zh', 'ja-Kata;q=0.1,en_PCN;q=0.8,zh_HKG;q=0.9,tlh-Latn-US'],
+            ['en', 'ja-Kata;q=0.1,en_PCN;q=1,zh_HKG;q=0.9,tlh-Latn-US'],
+            ['en', 'fr-CH, fr;q=0.9, en;q=0.8, de;q=0.7, *;q=0.5'],
+            ['en', 'en-US,en;q=0.5'],
+            ['en', 'da, en-gb;q=0.8, en;q=0.7'],
+            ['ru', 'ru,en-US;q=0.8,en;q=0.6'],
+            ['de', 'de-CH'],
+            ['de', 'de'],
+        ];
+    }
 
     public function testT()
     {
@@ -27,9 +56,9 @@ class TranslateTest extends TestCase
     public function testTArgs()
     {
         $translate = $this->getTranslate();
-        $translate->setLanguage("en");
+        $translate->setLanguage('en');
         $this->assertEquals(true, $translate->t('test %s', ['check']) == 'test string check');
-        $translate->setLanguage("ru");
+        $translate->setLanguage('ru');
         $this->assertEquals(true, $translate->t('test %s', ['check']) == 'тестовая строка check');
     }
 
@@ -48,10 +77,10 @@ class TranslateTest extends TestCase
     private function getTranslate()
     {
         return new Translate(
-            new PhpFilesLoader(__DIR__ . "/messages"),
+            new PhpFilesLoader(__DIR__ . '/messages'),
             [
-                "default" => "en",
-                "available" => ["en", "ru"],
+                'default' => 'en',
+                'available' => ['en', 'ru'],
             ]
         );
     }

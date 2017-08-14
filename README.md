@@ -93,4 +93,3 @@ return [
 ## TODO
 
  * Better code coverage
- * `Translate->detectLanguage()`. Rewrite, simplify, and add 3 letters language codes support.  
