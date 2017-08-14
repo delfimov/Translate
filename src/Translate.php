@@ -228,7 +228,6 @@ class Translate
     protected function getBestMatchingLanguage($languages)
     {
         if (!empty($this->options['available'])) {
-            $lang = null;
             foreach ($languages as $langUser) {
                 $shortLang = $this->shortLanguageCode($langUser);
                 foreach ($this->options['available'] as $langAvailable) {
@@ -333,7 +332,6 @@ class Translate
                 $args = array_slice(func_get_args(), 2);
             }
         } else {
-            // $args = array_fill(0, count($choices), $x);
             $args = [$x];
         }
 

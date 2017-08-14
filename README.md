@@ -1,4 +1,7 @@
+[![Build Status](https://travis-ci.org/delfimov/Translate.svg?branch=master)](https://travis-ci.org/delfimov/Translate)
+[![StyleCI](https://styleci.io/repos/3325239/shield?branch=master)](https://styleci.io/repos/3325239)
 [![License](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/delfimov/GDImage/blob/master/LICENSE)
+
 
 # Translate
 
@@ -90,4 +93,3 @@ return [
 
  * Better code coverage
  * `Translate->detectLanguage()`. Rewrite, simplify, and add 3 letters language codes support.  
- 
