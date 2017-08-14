@@ -73,8 +73,6 @@ class Translate
         // then 'en' will be used instead.
     ];
 
-    protected $maxLanguages = 99;
-
     /**
      * @var Loader\LoaderInterface
      */
@@ -220,9 +218,16 @@ class Translate
         return $this->language;
     }
 
-    protected function getBestMatchingLanguage($languages)
+    /**
+     * Get best matching locale code based on options
+     *
+     * @param array $languages detected locales
+     *
+     * @return mixed
+     */
+    protected function getBestMatchingLanguage(array $languages)
     {
-        if (!empty($this->options['available'])) {
+        if (!empty($this->options['available']) && !empty($languages)) {
             foreach ($languages as $langUser) {
                 $shortLang = $this->shortLanguageCode($langUser);
                 foreach ($this->options['available'] as $langAvailable) {
@@ -243,6 +248,13 @@ class Translate
         return $this->options['default-language'];
     }
 
+    /**
+     * Returns short (2-3 characters) locale code
+     *
+     * @param string $language long locale code (ex. en-US, zh_HKG, de-CH, etc.)
+     *
+     * @return string
+     */
     protected function shortLanguageCode($language)
     {
         if (strlen($language) > 2) {
@@ -259,9 +271,17 @@ class Translate
         return $language;
     }
 
-    public function detectLanguages($http_accept_language, $resolution = 100)
+    /**
+     * Detect acceptable locales by accept-language browser header.
+     *
+     * @param string $acceptLanguage accept-language browser header
+     * @param int    $resolution     resolution of locale qualities
+     *
+     * @return array
+     */
+    protected function detectLanguages($acceptLanguage, $resolution = 100)
     {
-        $tags = array_map('trim', explode(',', $http_accept_language));
+        $tags = array_map('trim', explode(',', $acceptLanguage));
         $languages = [];
         $languagesOrder = [];
         foreach ($tags as $tag) {
@@ -287,8 +307,8 @@ class Translate
     /**
      * Show translated message
      *
-     * @param string $string string to translate.
-     * @param array  $args   vsprintf with these arguments will be used if set.
+     * @param string     $string string to translate.
+     * @param array|null $args   vsprintf with these arguments will be used if set.
      *
      * @return string translated string.
      */
@@ -310,7 +330,7 @@ class Translate
      * Chooses plural translate based on $x
      *
      * @param string $string string to translate divided with "|" character.
-     * @param string $x      plural variable.
+     * @param int    $x      plural variable.
      * @param array  $args   vsprintf with these arguments will be used
      *                       if set (optional).
      *
@@ -346,15 +366,17 @@ class Translate
      * (http://framework.zend.com/license/new-bsd).
      * Copyright (c) 2005-2010 Zend Technologies USA Inc.
      * (http://www.zend.com)
+     * https://github.com/zendframework/zf1/blob/master/library/Zend/Translate/Plural.php
      *
-     * @param string $language language code
-     * @param string $x        plural variable
+     * @param string $locale language code
+     * @param int    $x      plural variable
      *
      * @return integer index of plural form rule.
      */
-    protected function pluralRule($language, $x)
+    protected function pluralRule($locale, $x)
     {
-        switch ($language) {
+        switch ($locale) {
+            case 'az':
             case 'bo':
             case 'dz':
             case 'id':
@@ -373,7 +395,6 @@ class Translate
                 break;
 
             case 'af':
-            case 'az':
             case 'bn':
             case 'bg':
             case 'ca':
