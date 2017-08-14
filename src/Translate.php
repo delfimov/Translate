@@ -76,7 +76,7 @@ class Translate
     protected $maxLanguages = 99;
 
     /**
-     * @var Loader\PhpFilesLoader
+     * @var Loader\LoaderInterface
      */
     protected $loader;
 
@@ -86,8 +86,6 @@ class Translate
      *
      * @param Loader\LoaderInterface $loader messages loader
      * @param array $options same as self::options
-     *
-     * @return Translate
      */
     public function __construct($loader, array $options = [])
     {
@@ -371,7 +369,7 @@ class Translate
             case 'tr':
             case 'vi':
             case 'zh':
-                return 0;
+                $index = 0;
                 break;
 
             case 'af':
@@ -425,7 +423,7 @@ class Translate
             case 'tk':
             case 'ur':
             case 'zu':
-                return ($x == 1) ? 0 : 1;
+                $index = ($x == 1) ? 0 : 1;
                 break;
 
             case 'am':
@@ -440,7 +438,7 @@ class Translate
             case 'xbr':
             case 'ti':
             case 'wa':
-                return (($x == 0) || ($x == 1)) ? 0 : 1;
+                $index = (($x == 0) || ($x == 1)) ? 0 : 1;
                 break;
 
             case 'be':
@@ -449,7 +447,7 @@ class Translate
             case 'ru':
             case 'sr':
             case 'uk':
-                return (
+                $index = (
                     ($x % 10 == 1) && ($x % 100 != 11)
                 ) ? (
                     0
@@ -464,15 +462,15 @@ class Translate
 
             case 'cs':
             case 'sk':
-                return ($x == 1) ? 0 : ((($x >= 2) && ($x <= 4)) ? 1 : 2);
+                $index = ($x == 1) ? 0 : ((($x >= 2) && ($x <= 4)) ? 1 : 2);
                 break;
 
             case 'ga':
-                return ($x == 1) ? 0 : (($x == 2) ? 1 : 2);
+                $index = ($x == 1) ? 0 : (($x == 2) ? 1 : 2);
                 break;
 
             case 'lt':
-                return (
+                $index = (
                     ($x % 10 == 1) && ($x % 100 != 11)
                 ) ? (
                     0
@@ -482,7 +480,7 @@ class Translate
                 break;
 
             case 'sl':
-                return (
+                $index = (
                     $x % 100 == 1
                 ) ? (
                     0
@@ -492,11 +490,11 @@ class Translate
                 break;
 
             case 'mk':
-                return ($x % 10 == 1) ? 0 : 1;
+                $index = ($x % 10 == 1) ? 0 : 1;
                 break;
 
             case 'mt':
-                return (
+                $index = (
                     $x == 1
                 ) ? (
                     0
@@ -510,11 +508,11 @@ class Translate
                 break;
 
             case 'lv':
-                return ($x == 0) ? 0 : ((($x % 10 == 1) && ($x % 100 != 11)) ? 1 : 2);
+                $index = ($x == 0) ? 0 : ((($x % 10 == 1) && ($x % 100 != 11)) ? 1 : 2);
                 break;
 
             case 'pl':
-                return (
+                $index = (
                     $x == 1
                 ) ? (
                     0
@@ -528,7 +526,7 @@ class Translate
                 break;
 
             case 'cy':
-                return (
+                $index = (
                     $x == 1
                 ) ? (
                     0
@@ -536,7 +534,7 @@ class Translate
                 break;
 
             case 'ro':
-                return (
+                $index = (
                     $x == 1
                 ) ? (
                     0
@@ -544,7 +542,7 @@ class Translate
                 break;
 
             case 'ar':
-                return (
+                $index = (
                     $x == 0
                 ) ? (
                     0
@@ -565,8 +563,9 @@ class Translate
                 break;
 
             default:
-                return 0;
+                $index = 0;
                 break;
         }
+        return $index;
     }
 }

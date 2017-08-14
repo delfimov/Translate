@@ -50,14 +50,14 @@ $t = new DElfimov\Translate\Translate(
 $num = rand(0, 100);
 
 $t->setLanguage("en"); // this is not required, language will be auto detected with Accept-Language HTTP header
-echo $t->t('some string') . "\n\n"; // or $t('some string');
+echo $t->t('some string') . "\n\n"; 
 echo $t->plural('%d liters', $num) . "\n\n";
 echo $t->plural("The %s contains %d monkeys", $num, ['tree', $num]) . "\n\n";
 
 $num = rand(0, 100);
 
 $t->setLanguage("ru");
-echo $t->t('some string')."\n\n"; // or $t('some string');
+echo $t->t('some string') . "\n\n";
 echo $t->plural('%d liters', $num) . "\n\n";
 echo $t->plural("The %s contains %d monkeys", $num, ['tree', $num]) . "\n\n";
 

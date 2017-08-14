@@ -33,5 +33,9 @@ install:
 script:
   - composer run-script test
 
+after_script:
+    - vendor/bin/ocular code-coverage:upload --format=php-clover coverage.xml
+    - vendor/bin/coveralls -v -c .coveralls.yml
+
 after_success:
   - bash <(curl -s https://codecov.io/bash)
