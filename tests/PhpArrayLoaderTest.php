@@ -1,6 +1,6 @@
 <?php
 use PHPUnit\Framework\TestCase;
-USE DElfimov\Translate\Loader\PhpArrayLoader;
+use DElfimov\Translate\Loader\PhpArrayLoader;
 
 /**
  * @covers DElfimov\Translate\Loader\PhpArrayLoader
