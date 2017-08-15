@@ -1,3 +1,4 @@
+[![Latest Stable Version](https://poser.pugx.org/delfimov/translate/v/stable)](https://packagist.org/packages/delfimov/translate)
 [![Build Status](https://travis-ci.org/delfimov/Translate.svg?branch=master)](https://travis-ci.org/delfimov/Translate)
 [![StyleCI](https://styleci.io/repos/3325239/shield?branch=master)](https://styleci.io/repos/3325239)
 [![SensioLabsInsight](https://insight.sensiolabs.com/projects/26b7cfce-3636-4385-be29-54f51b6dfe42/mini.png)](https://insight.sensiolabs.com/projects/26b7cfce-3636-4385-be29-54f51b6dfe42)
