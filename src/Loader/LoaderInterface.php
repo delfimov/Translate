@@ -2,6 +2,10 @@
 
 namespace DElfimov\Translate\Loader;
 
+/**
+ * Interface LoaderInterface
+ * @package DElfimov\Translate\Loader
+ */
 interface LoaderInterface
 {
     /**

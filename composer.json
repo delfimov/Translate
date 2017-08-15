@@ -30,7 +30,8 @@
         "squizlabs/php_codesniffer": "3.*",
         "phpunit/phpunit": "4.*",
         "scrutinizer/ocular": "~1.3",
-        "satooshi/php-coveralls": "^1.0"
+        "satooshi/php-coveralls": "^1.0",
+        "phpdocumentor/phpdocumentor": "2.*"
     },
 
     "scripts" : {

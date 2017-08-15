@@ -11,11 +11,15 @@ class PhpFilesLoader implements LoaderInterface
 {
 
     /**
+     * Path to messages with translations
+     *
      * @var
      */
     protected $path;
 
     /**
+     * Messages container
+     *
      * @var array
      */
     protected $messages = [];
@@ -31,6 +35,8 @@ class PhpFilesLoader implements LoaderInterface
     }
 
     /**
+     * Get messages with translations from specified path
+     *
      * @param string $language
      * @return array
      */
@@ -50,6 +56,8 @@ class PhpFilesLoader implements LoaderInterface
     }
 
     /**
+     * Determines whether a language is available.
+     *
      * @param string $language
      * @return bool
      */

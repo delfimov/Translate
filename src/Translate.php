@@ -74,6 +74,8 @@ class Translate
     ];
 
     /**
+     * Messages loader
+     *
      * @var Loader\LoaderInterface
      */
     protected $loader;

@@ -11,6 +11,8 @@ class PhpArrayLoader implements LoaderInterface
 {
 
     /**
+     * Messages container
+     *
      * @var array
      */
     protected $messages = [];
@@ -36,6 +38,8 @@ class PhpArrayLoader implements LoaderInterface
     }
 
     /**
+     * Get messages with translations
+     *
      * @param string $language
      * @return array
      */
@@ -48,6 +52,8 @@ class PhpArrayLoader implements LoaderInterface
     }
 
     /**
+     * Is translation for specified locale avialable?
+     *
      * @param string $language
      * @return bool
      */
