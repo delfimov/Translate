@@ -80,6 +80,11 @@ class Translate
      */
     protected $loader;
 
+    /**
+     * @var \Psr\Log\LoggerInterface
+     */
+    protected $logger;
+
 
     /**
      * Translate constructor.
@@ -87,11 +92,37 @@ class Translate
      * @param Loader\LoaderInterface $loader messages loader
      * @param array $options same as self::options
      */
-    public function __construct($loader, array $options = [])
+    public function __construct($loader, array $options = [], \Psr\Log\LoggerInterface $logger = null)
     {
         $this->loader = $loader;
         $this->setOptions($options);
+        if (null !== $logger) {
+            $this->setLogger($logger);
+        }
     }
+
+
+    /**
+     * @return \Psr\Log\LoggerInterface
+     */
+    public function getLogger()
+    {
+        return $this->logger;
+    }
+
+
+    /**
+     * @param \Psr\Log\LoggerInterface $logger
+     *
+     * @return $this
+     */
+    public function setLogger(\Psr\Log\LoggerInterface $logger)
+    {
+        $this->logger = $logger;
+
+        return $this;
+    }
+
 
 
     /**
@@ -189,8 +220,13 @@ class Translate
             $this->setMessages($this->language, $this->getMessages($this->language));
         }
         if (isset($this->messages[$language][$string])) {
-            $string = $this->messages[$language][$string];
+            return $this->messages[$language][$string];
         }
+
+        if (null !== $this->logger) {
+            $this->logger->warning(sprintf('[translate] message "%s" not found', $string));
+        }
+
         return $string;
     }
 
