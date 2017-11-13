@@ -15,6 +15,8 @@ namespace DElfimov\Translate;
 
 use \Psr\Log\LoggerInterface;
 use \DElfimov\Translate\Loader\LoaderInterface;
+use \DElfimov\Translate\Loader\ContainerException;
+use \DElfimov\Translate\Loader\NotFoundException;
 
 /**
  * Class Translate
@@ -66,7 +68,6 @@ class Translate
         'synonyms' => [
             'gb' => 'en',
             'us' => 'en',
-            'ua' => 'uk',
             'cn' => 'zh',
             'hk' => 'zh',
             'tw' => 'zh',
@@ -100,6 +101,7 @@ class Translate
     {
         $this->loader = $loader;
         $this->setOptions($options);
+        $this->setLanguage($this->getLanguage(true));
         if (null !== $logger) {
             $this->setLogger($logger);
         }
@@ -146,8 +148,6 @@ class Translate
         foreach ($options as $key => $value) {
             $this->options[$key] = $value;
         }
-        $this->setLanguage($this->getLanguage(true));
-        $this->setMessages($this->language, $this->getMessages($this->language));
     }
 
     /**
@@ -160,60 +160,9 @@ class Translate
     public function setLanguage($language)
     {
         $this->language = $language;
+        $this->loader->setLanguage($language);
     }
 
-    /**
-     * Is messages for specified language are loaded
-     *
-     * @param string $language language code
-     *
-     * @return bool
-     */
-    public function isMessages($language)
-    {
-        return isset($this->messages[$language]);
-    }
-
-    /**
-     * Are messages for specified language available
-     *
-     * @param string $language language code
-     *
-     * @return bool
-     */
-    public function hasMessages($language)
-    {
-        return $this->loader->has($language);
-    }
-
-
-    /**
-     * Set messages for language
-     *
-     * @param string $language messages languages
-     * @param array  $messages messages with translations
-     *
-     * @return void
-     */
-    public function setMessages($language, array $messages)
-    {
-        $this->messages[$language] = $messages;
-    }
-
-    /**
-     * Loads translation files.
-     *
-     * @param string $language language to load
-     *
-     * @return array
-     */
-    protected function getMessages($language)
-    {
-        if (!isset($this->messages[$language])) {
-            $this->messages[$language] = $this->loader->get($language);
-        }
-        return $this->messages[$language];
-    }
 
     /**
      * Get translation of message for language
@@ -225,14 +174,19 @@ class Translate
      */
     protected function getMessage($language, $string)
     {
-        if (!$this->isMessages($this->language)) {
-            $this->setMessages($this->language, $this->getMessages($this->language));
+        $message = $string;
+        try {
+            $message = $this->loader->get($string);
+        } catch (NotFoundException $exception) {
+            $this->addLoggerWarning(
+                sprintf('[translate] language: "%s", message "%s" not found', $language, $string)
+            );
+        } catch (ContainerException $exception) {
+            $this->addLoggerWarning(
+                sprintf('[translate] language: "%s", message "%s" loader error', $language, $string)
+            );
         }
-        if (isset($this->messages[$language][$string])) {
-            return $this->messages[$language][$string];
-        }
-        $this->addLoggerWarning(sprintf('[translate] language: "%s", message "%s" not found', $language, $string));
-        return $string;
+        return $message;
     }
 
 

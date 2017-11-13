@@ -1,6 +1,5 @@
 <?php
 
-
 namespace DElfimov\Translate\Loader;
 
 /**
@@ -9,7 +8,6 @@ namespace DElfimov\Translate\Loader;
  */
 class PhpFilesLoader implements LoaderInterface
 {
-
     /**
      * Path to messages with translations
      *
@@ -24,6 +22,13 @@ class PhpFilesLoader implements LoaderInterface
      */
     protected $messages = [];
 
+    /**
+     * Language code
+     *
+     * @var string
+     */
+    protected $language;
+
 
     /**
      * PhpFilesLoader constructor.
@@ -35,37 +40,78 @@ class PhpFilesLoader implements LoaderInterface
     }
 
     /**
-     * Get messages with translations from specified path
-     *
      * @param string $language
-     * @return array
      */
-    public function get($language)
+    public function setLanguage($language)
     {
-        if (empty($language)) {
-            return [];
-        }
-        if (!isset($this->messages[$language])) {
-            $messages = [];
-            if ($this->has($language)) {
-                $messages = include $this->path . '/' . $language . '/messages.php';
-            }
-            $this->messages[$language] = $messages;
-        }
-        return $this->messages[$language];
+        $this->language = $language;
+        $this->loadMessages();
     }
 
     /**
-     * Determines whether a language is available.
+     * @param bool $force reload messages from file (optional)
+     * @throws ContainerException
+     */
+    public function loadMessages($force = false)
+    {
+        if (!isset($this->messages[$this->language]) || $force) {
+            if ($this->isLanguageFileExists($this->language)) {
+                $this->messages[$this->language] = include $this->path . '/' . $this->language . '/messages.php';
+            } else {
+                throw new ContainerException(sprintf('Translations file for language %s not found', $this->language));
+            }
+        }
+    }
+
+    /**
+     * Is language file exists
      *
      * @param string $language
      * @return bool
      */
-    public function has($language)
+    protected function isLanguageFileExists($language)
     {
         return (
             file_exists($this->path . '/' . $language)
             && file_exists($this->path . '/' . $language . '/messages.php')
         );
+    }
+
+    /**
+     * @param string $language
+     * @return bool
+     */
+    public function hasLanguage($language)
+    {
+        return !empty($this->messages[$language]) || $this->isLanguageFileExists($language);
+    }
+
+    /**
+     * Get messages with translations
+     * @param string $message
+     * @return string
+     * @throws ContainerException
+     * @throws NotFoundException
+     */
+    public function get($message)
+    {
+        if (empty($message) || !is_string($message)) {
+            throw new ContainerException('Message must be a string');
+        }
+        if (empty($this->messages[$this->language]) || empty($this->messages[$this->language][$message])) {
+            throw new NotFoundException();
+        }
+        return $this->messages[$this->language][$message];
+    }
+
+    /**
+     * Is translation for specified message available?
+     *
+     * @param string $message
+     * @return bool
+     */
+    public function has($message)
+    {
+        return isset($this->messages[$this->language]) && isset($this->messages[$this->language][$message]);
     }
 }
