@@ -13,6 +13,9 @@
 
 namespace DElfimov\Translate;
 
+use \Psr\Log\LoggerInterface;
+use \DElfimov\Translate\Loader\LoaderInterface;
+
 /**
  * Class Translate
  *
@@ -76,12 +79,12 @@ class Translate
     /**
      * Messages loader
      *
-     * @var Loader\LoaderInterface
+     * @var LoaderInterface
      */
     protected $loader;
 
     /**
-     * @var \Psr\Log\LoggerInterface
+     * @var LoggerInterface
      */
     protected $logger;
 
@@ -89,10 +92,11 @@ class Translate
     /**
      * Translate constructor.
      *
-     * @param Loader\LoaderInterface $loader messages loader
+     * @param LoaderInterface $loader messages loader
      * @param array $options same as self::options
+     * @param LoggerInterface $logger PSR-3 compatible logging library (ex. Monolog)
      */
-    public function __construct($loader, array $options = [], \Psr\Log\LoggerInterface $logger = null)
+    public function __construct(LoaderInterface $loader, array $options = [], LoggerInterface $logger = null)
     {
         $this->loader = $loader;
         $this->setOptions($options);
@@ -101,29 +105,34 @@ class Translate
         }
     }
 
-
     /**
-     * @return \Psr\Log\LoggerInterface
+     * @return LoggerInterface
      */
     public function getLogger()
     {
         return $this->logger;
     }
 
-
     /**
-     * @param \Psr\Log\LoggerInterface $logger
+     * @param LoggerInterface $logger
      *
      * @return $this
      */
-    public function setLogger(\Psr\Log\LoggerInterface $logger)
+    public function setLogger(LoggerInterface $logger)
     {
         $this->logger = $logger;
-
         return $this;
     }
 
-
+    /**
+     * @param string $message
+     */
+    public function addLoggerWarning($message)
+    {
+        if (null !== $this->logger) {
+            $this->logger->warning($message);
+        }
+    }
 
     /**
      * Set specified options
@@ -222,11 +231,7 @@ class Translate
         if (isset($this->messages[$language][$string])) {
             return $this->messages[$language][$string];
         }
-
-        if (null !== $this->logger) {
-            $this->logger->warning(sprintf('[translate] message "%s" not found', $string));
-        }
-
+        $this->addLoggerWarning(sprintf('[translate] language: "%s", message "%s" not found', $language, $string));
         return $string;
     }
 
