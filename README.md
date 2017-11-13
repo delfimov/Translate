@@ -10,9 +10,11 @@
 Easy to use i18n translation PHP class for multi-language websites 
 with language auto detection and plurals.
 
+PSR-6 translation containers. PSR-3 logger.
+
 ## Requirements
 
- * [PHP >= 5.4](http://www.php.net/)
+ * [PHP >= 5.6](http://www.php.net/)
 
 ## How to install
 
@@ -44,13 +46,19 @@ See [`example`](example) directory for sources.
 
 use DElfimov\Translate\Translate;
 use DElfimov\Translate\Loader\PhpFilesLoader;
+use Monolog\Logger; // PSR-3 logger, not required  
+use Monolog\Handler\StreamHandler;
+
+$log = new Logger('Translate');
+$log->pushHandler(new StreamHandler('path/to/your.log', Logger::WARNING));
 
 $t = new Translate(
     new PhpFilesLoader(__DIR__ . "/messages"),
     [
         "default" => "en",
         "available" => ["en", "ru"],
-    ]
+    ],
+    $log // optional
 );
 
 $num = rand(0, 100);
@@ -94,3 +102,5 @@ return [
 ## TODO
 
  * Better code coverage
+ 
+
