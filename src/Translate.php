@@ -224,7 +224,7 @@ class Translate
         }
 
         if (null !== $this->logger) {
-            $this->logger->warning(sprintf('[translate] message "%s" not found', $string));
+            $this->logger->warning(sprintf('[translate] message "%s" not found in language "%s"', $string, $language));
         }
 
         return $string;
