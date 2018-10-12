@@ -1,6 +1,5 @@
 <?php
 
-
 namespace DElfimov\Translate\Loader;
 
 /**
@@ -17,6 +16,12 @@ class PhpArrayLoader implements LoaderInterface
      */
     protected $messages = [];
 
+    /**
+     * Language code
+     *
+     * @var string
+     */
+    protected $language;
 
     /**
      * PhpFilesLoader constructor.
@@ -38,27 +43,49 @@ class PhpArrayLoader implements LoaderInterface
     }
 
     /**
-     * Get messages with translations
-     *
      * @param string $language
-     * @return array
      */
-    public function get($language)
+    public function setLanguage($language)
     {
-        if (empty($language)) {
-            return [];
-        }
-        return empty($this->messages[$language]) ? [] : $this->messages[$language];
+        $this->language = $language;
     }
 
     /**
-     * Is translation for specified locale avialable?
-     *
      * @param string $language
      * @return bool
      */
-    public function has($language)
+    public function hasLanguage($language)
     {
-        return isset($this->messages[$language]);
+        return !empty($this->messages[$language]);
+    }
+
+
+    /**
+     * Get messages with translations
+     * @param string $message
+     * @return string
+     * @throws ContainerException
+     * @throws NotFoundException
+     */
+    public function get($message)
+    {
+        if (empty($message) || !is_string($message)) {
+            throw new ContainerException('Message must be a string');
+        }
+        if (empty($this->messages[$this->language]) || empty($this->messages[$this->language][$message])) {
+            throw new NotFoundException();
+        }
+        return $this->messages[$this->language][$message];
+    }
+
+    /**
+     * Is translation for specified message available?
+     *
+     * @param string $message
+     * @return bool
+     */
+    public function has($message)
+    {
+        return isset($this->messages[$this->language]) && isset($this->messages[$this->language][$message]);
     }
 }

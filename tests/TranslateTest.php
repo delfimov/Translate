@@ -28,7 +28,7 @@ class TranslateTest extends TestCase
                 'available' => ['en', 'ru', 'de', 'zh', 'ja'],
             ]
         );
-        $this->assertEquals(true, $translate->getLanguage() == $language);
+        $this->assertEquals(true, $translate->getLanguage(true) == $language);
     }
 
     public function headersProvider()

@@ -13,20 +13,31 @@ class PhpArrayLoaderTest extends TestCase
         $this->assertEquals(true, $loader instanceof PhpArrayLoader);
     }
 
+    public function testHasLanguage()
+    {
+        $loader = $this->getLoader();
+        $this->assertEquals(true, $loader->hasLanguage('ru'));
+        $this->assertEquals(true, $loader->hasLanguage('en'));
+        $this->assertEquals(false, $loader->hasLanguage('de'));
+    }
+
     public function testHas()
     {
         $loader = $this->getLoader();
-        $this->assertEquals(true, $loader->has('ru'));
-        $this->assertEquals(true, $loader->has('en'));
+        $loader->setLanguage('en');
+        $this->assertEquals(true, $loader->has('some'));
+        $this->assertEquals(false, $loader->has('someone'));
+        $loader->setLanguage('ru');
+        $this->assertEquals(true, $loader->has('another'));
     }
 
     public function testGet()
     {
         $loader = $this->getLoader();
-        $messages = $loader->get('ru');
-        $this->assertEquals(true, (!empty($messages) && is_array($messages)));
-        $messages = $loader->get('en');
-        $this->assertEquals(true, (!empty($messages) && is_array($messages)));
+        $loader->setLanguage('en');
+        $this->assertEquals(true, $loader->get('some') == 'Some string');
+        $loader->setLanguage('ru');
+        $this->assertEquals(true, $loader->get('another') == 'Другая строка');
     }
 
     private function getLoader()
