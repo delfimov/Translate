@@ -41,6 +41,7 @@ class PhpFilesLoader implements LoaderInterface
 
     /**
      * @param string $language
+     * @throws ContainerException
      */
     public function setLanguage($language)
     {

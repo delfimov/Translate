@@ -29,6 +29,8 @@ interface LoaderInterface extends ContainerInterface
      * Fetches messages.
      * @param string $language language code.
      * @return string translated message
+     * @throws ContainerException
+     * @throws NotFoundException
      */
     public function get($language);
 
