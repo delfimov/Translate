@@ -29,20 +29,12 @@ use \DElfimov\Translate\Loader\NotFoundException;
  */
 class Translate
 {
-
     /**
      * Current language
      *
      * @var string
      */
     protected $language = '';
-
-    /**
-     * Messages with translations
-     *
-     * @var array
-     */
-    protected $messages = [];
 
     /**
      *
@@ -163,7 +155,6 @@ class Translate
         $this->loader->setLanguage($language);
     }
 
-
     /**
      * Get translation of message for language
      *
@@ -186,15 +177,7 @@ class Translate
                 sprintf('[translate] language: "%s", message "%s" loader error', $language, $string)
             );
         }
-        if (isset($this->messages[$language][$string])) {
-            return $this->messages[$language][$string];
-        }
-
-        if (null !== $this->logger) {
-            $this->logger->warning(sprintf('[translate] message "%s" not found in language "%s"', $string, $language));
-        }
-
-        return $string;
+        return $message;
     }
 
 
