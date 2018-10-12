@@ -186,7 +186,15 @@ class Translate
                 sprintf('[translate] language: "%s", message "%s" loader error', $language, $string)
             );
         }
-        return $message;
+        if (isset($this->messages[$language][$string])) {
+            return $this->messages[$language][$string];
+        }
+
+        if (null !== $this->logger) {
+            $this->logger->warning(sprintf('[translate] message "%s" not found in language "%s"', $string, $language));
+        }
+
+        return $string;
     }
 
 
