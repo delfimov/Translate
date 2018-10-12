@@ -71,9 +71,8 @@ class PhpArrayLoader implements LoaderInterface
     {
         if (empty($message) || !is_string($message)) {
             throw new ContainerException('Message must be a string');
-        }
-        if (empty($this->messages[$this->language]) || empty($this->messages[$this->language][$message])) {
-            throw new NotFoundException();
+        } elseif (empty($this->messages[$this->language]) || empty($this->messages[$this->language][$message])) {
+            throw new NotFoundException('Message not found');
         }
         return $this->messages[$this->language][$message];
     }

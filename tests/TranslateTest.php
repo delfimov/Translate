@@ -2,6 +2,8 @@
 use PHPUnit\Framework\TestCase;
 use DElfimov\Translate\Translate;
 use DElfimov\Translate\Loader\PhpFilesLoader;
+use Monolog\Logger;
+use Monolog\Handler\StreamHandler;
 
 /**
  * @covers DElfimov\Translate\Translate
@@ -11,6 +13,14 @@ class TranslateTest extends TestCase
     public function testCanBeCreated()
     {
         $translate = $this->getTranslate();
+        $this->assertEquals(true, $translate instanceof Translate);
+        $translate->setLanguage("en");
+        $this->assertEquals(true, $translate->getLanguage() == 'en');
+    }
+
+    public function testCanBeCreatedWithLogger()
+    {
+        $translate = $this->getTranslateWithLogger();
         $this->assertEquals(true, $translate instanceof Translate);
         $translate->setLanguage("en");
         $this->assertEquals(true, $translate->getLanguage() == 'en');
@@ -49,8 +59,23 @@ class TranslateTest extends TestCase
     public function testT()
     {
         $translate = $this->getTranslate();
-        $translate->setLanguage("en");
+        $translate->setLanguage('en');
         $this->assertEquals(true, $translate->t('test1') == 'Test 1');
+    }
+
+    public function testTWithLogger()
+    {
+        $translate = $this->getTranslateWithLogger();
+        $translate->setLanguage('en');
+        $this->assertEquals(true, $translate->t('test1') == 'Test 1');
+        $this->assertEquals(true, $translate->t('test2') == 'test2');
+        $translate->setLanguage('kz');
+        $this->assertEquals(true, $translate->t('test1') == 'test1');
+        $this->assertEquals(true, $translate->t('test3') == 'test3');
+        $this->assertEquals(true, $translate->t(['test']) == ['test']);
+        $this->assertEquals(true, file_exists(__DIR__ . '/log/monolog.log'));
+        $logContents = file_get_contents(__DIR__ . '/log/monolog.log');
+        $this->assertEquals(true, strpos($logContents, 'test.WARNING') != false);
     }
 
     public function testTArgs()
@@ -82,6 +107,27 @@ class TranslateTest extends TestCase
                 'default' => 'en',
                 'available' => ['en', 'ru'],
             ]
+        );
+    }
+
+    private function getTranslateWithLogger()
+    {
+        $log = new Logger('test');
+        file_put_contents(__DIR__ . '/log/monolog.log', '');
+        try {
+            $log->pushHandler(new StreamHandler(__DIR__ . '/log/monolog.log', Logger::NOTICE));
+        } catch (\InvalidArgumentException $exception) {
+            return false;
+        } catch (\Exception $exception) {
+            return false;
+        }
+        return new Translate(
+            new PhpFilesLoader(__DIR__ . '/messages'),
+            [
+                'default' => 'en',
+                'available' => ['en', 'ru'],
+            ],
+            $log
         );
     }
 

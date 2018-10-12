@@ -21,6 +21,7 @@ interface LoaderInterface extends ContainerInterface
     /**
      * Set a language for a messages container
      * @param string $language language code
+     * @throws ContainerException
      * @return void
      */
     public function setLanguage($language);

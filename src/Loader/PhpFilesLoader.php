@@ -59,7 +59,13 @@ class PhpFilesLoader implements LoaderInterface
             if ($this->isLanguageFileExists($this->language)) {
                 $this->messages[$this->language] = include $this->path . '/' . $this->language . '/messages.php';
             } else {
-                throw new ContainerException(sprintf('Translations file for language %s not found', $this->language));
+                throw new ContainerException(
+                    sprintf(
+                        'Translations file "%s" for language "%s" not found',
+                        $this->path . '/' . $this->language . '/messages.php',
+                        $this->language
+                    )
+                );
             }
         }
     }
@@ -100,7 +106,7 @@ class PhpFilesLoader implements LoaderInterface
             throw new ContainerException('Message must be a string');
         }
         if (empty($this->messages[$this->language]) || empty($this->messages[$this->language][$message])) {
-            throw new NotFoundException();
+            throw new NotFoundException('Message not found');
         }
         return $this->messages[$this->language][$message];
     }

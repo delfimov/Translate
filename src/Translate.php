@@ -120,11 +120,12 @@ class Translate
 
     /**
      * @param string $message
+     * @param array  $context
      */
-    public function addLoggerWarning($message)
+    public function addLoggerWarning($message, array $context = [])
     {
         if (null !== $this->logger) {
-            $this->logger->warning($message);
+            $this->logger->warning($message, $context);
         }
     }
 
@@ -152,7 +153,11 @@ class Translate
     public function setLanguage($language)
     {
         $this->language = $language;
-        $this->loader->setLanguage($language);
+        try {
+            $this->loader->setLanguage($language);
+        } catch (ContainerException $exception) {
+            $this->addLoggerWarning('[translate] ' . $exception->getMessage(), ['language' => $language]);
+        }
     }
 
     /**
@@ -169,17 +174,12 @@ class Translate
         try {
             $message = $this->loader->get($string);
         } catch (NotFoundException $exception) {
-            $this->addLoggerWarning(
-                sprintf('[translate] language: "%s", message "%s" not found', $language, $string)
-            );
+            $this->addLoggerWarning('[translate] ' . $exception->getMessage(), ['language' => $language, 'message' => $string]);
         } catch (ContainerException $exception) {
-            $this->addLoggerWarning(
-                sprintf('[translate] language: "%s", message "%s" loader error', $language, $string)
-            );
+            $this->addLoggerWarning('[translate] ' . $exception->getMessage(), ['language' => $language, 'message' => $string]);
         }
         return $message;
     }
-
 
     /**
      * Get current language
