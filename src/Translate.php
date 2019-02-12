@@ -326,9 +326,11 @@ class Translate
      */
     public function plural($string, $x, $args = null)
     {
-        $string = $this->getMessage($this->language, $string);
-
-        $choices = explode('|', $string);
+        $string  = $this->getMessage($this->language, $string);
+        $choices = $string;
+        if (false === is_array($string)) {
+            $choices = explode('|', $string);
+        }
         $args = isset($args) ? $args : array($x);
         if (isset($args)) {
             if (!is_array($args)) {
