@@ -99,6 +99,18 @@ class TranslateTest extends TestCase
         $this->assertEquals(true, $translate->plural('%d tests', $n) == $correctRU);
     }
 
+    /**
+     * @dataProvider numbersProviderArr
+     */
+    public function testPluralArray($n, $correctEN, $correctRU)
+    {
+        $translate = $this->getTranslate();
+        $translate->setLanguage("en");
+        $this->assertEquals(true, $translate->plural('%d array tests', $n) == $correctEN);
+        $translate->setLanguage("ru");
+        $this->assertEquals(true, $translate->plural('%d array tests', $n) == $correctRU);
+    }
+
     private function getTranslate()
     {
         return new Translate(
@@ -140,6 +152,18 @@ class TranslateTest extends TestCase
             [10,  'Tests 10',  '10 тестов'],
             [59,  'Tests 59',  '59 тестов'],
             [101, 'Tests 101', '101 тест' ],
+        ];
+    }
+
+    public function numbersProviderArr()
+    {
+        return [
+            [1,   '1 array test',    '1 тест массива'    ],
+            [2,   '2 array tests',   '2 теста массива'   ],
+            [5,   '5 array tests',   '5 тестов массивов' ],
+            [10,  '10 array tests',  '10 тестов массивов'],
+            [59,  '59 array tests',  '59 тестов массивов'],
+            [101, '101 array tests', '101 тест массива'  ],
         ];
     }
 }

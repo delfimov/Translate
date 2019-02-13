@@ -83,8 +83,10 @@ echo $t->plural("The %s contains %d monkeys", $num, ['tree', $num]) . "\n\n";
 <?php
 return [
     'some string' => 'Some string',
-    '%d liters' => '%d liter|%d liters',
-    'The %s contains %d monkeys' => 'The %s contains %d monkey|The %s contains %d monkeys',
+    '%d liters' => ['%d liter', '%d liters'],
+    '%d liters alt' => '%d liter|%d liters',
+    'The %s contains %d monkeys' => ['The %s contains %d monkey', 'The %s contains %d monkeys'],
+    'The %s contains %d monkeys alt' => 'The %s contains %d monkey|The %s contains %d monkeys',
 ];
 ```
 
@@ -94,7 +96,8 @@ return [
 return [
     'some string' => 'Просто строка',
     '%d liters' => '%d литр|%d литра|%d литров',
-    'The %s contains %d monkeys' => 'На %s сидит %d обезьяна|На %s сидят %d обезьяны|На %s сидят %d обезьян',
+    'The %s contains %d monkeys' => ['На %s сидит %d обезьяна', 'На %s сидят %d обезьяны', 'На %s сидят %d обезьян'],
+    'The %s contains %d monkeys alt' => 'На %s сидит %d обезьяна|На %s сидят %d обезьяны|На %s сидят %d обезьян',
     'tree' => 'дереве'
 ];
 ```
