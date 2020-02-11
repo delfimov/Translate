@@ -302,7 +302,11 @@ class Translate
      */
     public function t($string, $args = null)
     {
-        $string = $this->getMessage($this->language, $string);
+        $original = $string;
+        $string   = $this->getMessage($this->language, $string);
+        if (true === is_array($string)) {
+            return $this->plural($original, 1, $args);
+        }
         if (isset($args)) {
             if (!is_array($args)) {
                 $args = func_get_args();
@@ -310,6 +314,7 @@ class Translate
             }
             $string = vsprintf($string, $args);
         }
+
         return $string;
     }
     
