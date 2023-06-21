@@ -10,7 +10,6 @@ use Psr\Container\ContainerInterface;
  */
 interface LoaderInterface extends ContainerInterface
 {
-
     /**
      * Determines whether a language is available.
      * @param string $language language code
