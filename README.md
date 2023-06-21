@@ -42,7 +42,7 @@ See [`example`](example) directory for sources.
 
 `example\example.php`
 ```php
-<pre><?php
+<?php
 
 use DElfimov\Translate\Translate;
 use DElfimov\Translate\Loader\PhpFilesLoader;
@@ -75,7 +75,7 @@ echo $t->t('some string')."\n\n"; // or $t('some string');
 echo $t->plural('%d liters', $num) . "\n\n";
 echo $t->plural("The %s contains %d monkeys", $num, ['tree', $num]) . "\n\n";
 
-?></pre>
+?>
 ```
 
 `example\messages\en\messages.php`

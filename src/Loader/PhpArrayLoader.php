@@ -8,7 +8,6 @@ namespace DElfimov\Translate\Loader;
  */
 class PhpArrayLoader implements LoaderInterface
 {
-
     /**
      * Messages container
      *
